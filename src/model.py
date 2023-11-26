@@ -1,6 +1,5 @@
 from datetime import timedelta
 from typing import List, Tuple
-
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import QuantileRegressor
@@ -50,7 +49,10 @@ def quantile_loss(y_true: np.ndarray, y_pred: np.ndarray, quantile: float) -> fl
     loss = np.maximum(quantile * error, (quantile - 1) * error)
     return np.mean(loss)
 
-def evaluate_model(df_true: pd.DataFrame, df_pred: pd.DataFrame, quantiles: List[float] = [0.1, 0.5, 0.9], horizons: List[int] = [7, 14, 21]) -> pd.DataFrame:
+def evaluate_model(df_true: pd.DataFrame,
+                   df_pred: pd.DataFrame,
+                   quantiles: List[float] = [0.1, 0.5, 0.9],
+                   horizons: List[int] = [7, 14, 21]) -> pd.DataFrame:
     """
     Evaluate the model performance using quantile loss.
 
@@ -77,7 +79,6 @@ def evaluate_model(df_true: pd.DataFrame, df_pred: pd.DataFrame, quantiles: List
     losses.columns = ["quantile", "horizon", "avg_quantile_loss"]
 
     return losses
-
 
 class MultiTargetModel:
     """
